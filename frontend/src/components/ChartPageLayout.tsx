@@ -17,7 +17,7 @@ export const ChartPageLayout = ({
       <Box
         p={8}
         height="100%"
-        width={sidebarShown ? "calc(100% - 300px)": "100%"}
+        width={sidebarShown ? "70%": "100%"}
         transition="transform .3s"
         transform="translate3d(0,0,0)"
       >

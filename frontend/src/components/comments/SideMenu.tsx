@@ -8,7 +8,7 @@ interface SideMenuProps extends PropsWithChildren {
 export const SideMenu = ({ show, children }: SideMenuProps) => {
   return (
     <Flex
-      width={show ? "300px" : "0"}
+      width={show ? "30%" : "0"}
       p={show ? 3 : 0}
       position="absolute"
       top="0"
