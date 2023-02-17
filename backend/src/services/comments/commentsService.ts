@@ -2,7 +2,7 @@ import * as commentThreadsRepository from 'repositories/commentThreadsRepository
 import { ChartDataPoint } from 'models/ChartDataPoint';
 import { Comment } from 'models/Comment';
 import { BadRequestError } from 'utils/errors';
-import {CommentThreadWithComments} from "../../models/CommentThread";
+import { CommentThreadWithComments } from '../../models/CommentThread';
 
 export const getAllCommentThreads = () => {
   return commentThreadsRepository.getAll();
@@ -20,10 +20,13 @@ export const createThread = (dataPoint: ChartDataPoint, comment: Comment) => {
   const thread = commentThreadsRepository.getByDataPoint(dataPoint);
 
   if (!thread) {
-    return commentThreadsRepository.addComment((thread as unknown as CommentThreadWithComments)?.id ?? '', comment);
+    return commentThreadsRepository.createThread(dataPoint, comment);
   }
 
-  return commentThreadsRepository.createThread(dataPoint, comment);
+  return commentThreadsRepository.addComment(
+    (thread as CommentThreadWithComments)?.id ?? '',
+    comment,
+  );
 };
 
 export const respondToThread = (id: string, comment: Comment) => {

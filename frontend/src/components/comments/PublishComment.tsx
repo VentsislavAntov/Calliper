@@ -4,7 +4,7 @@ import { usePublishComment } from "../../data/hooks/useSendComment";
 import { usePublishCommentForm } from "../../data/hooks/useSendCommentForm";
 
 export const PublishComment = () => {
-  const { commentPublishing, publishComment, commentError } =
+  const { publishComment, commentError } =
     usePublishComment();
   const { userName, setUsername, text, setText } = usePublishCommentForm();
 
@@ -38,7 +38,7 @@ export const PublishComment = () => {
         colorScheme="green"
         width="full"
         type="submit"
-        disabled={commentPublishing}
+        disabled={!userName || !text}
       >
         Publish
       </Button>

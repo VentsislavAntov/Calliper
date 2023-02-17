@@ -60,7 +60,7 @@ export const addComment = (
 
   if (!thread) throw new BadRequestError('Thread not found');
 
-  thread.commentsCount += thread.commentsCount + 1;
+  thread.commentsCount += 1;
   thread.comments = [...thread.comments, comment];
 
   return thread;

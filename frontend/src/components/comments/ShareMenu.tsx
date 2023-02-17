@@ -15,7 +15,7 @@ export const ShareMenu = ({ show }: ShareMenuProps) => {
     if (!link) return;
 
     try {
-      (navigator as any).clipbord.writeText(link);
+      navigator.clipboard.writeText(link);
     } catch (error) {
       console.error(error);
     }

@@ -22,7 +22,7 @@ router.get('/chart/data', getChartData);
 
 router.get('/chart/comment_threads', getAllCommentThreads);
 router.get('/chart/comment_threads/:id', getCommentThread);
-router.post('/chart/comment_threads', createCommentThread);
+router.post('/chart/comment_threads_post', createCommentThread);
 router.post('/chart/comment_threads/:id/respond', respondToCommentThread);
 
 router.get('/share', getShareToken);

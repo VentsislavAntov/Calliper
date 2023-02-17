@@ -31,7 +31,7 @@ export const createCommentThread = async (
   comment: Comment,
   dataPoint: DataPoint
 ): Promise<CommentThreadWithComments> => {
-  const response = await fetch(`${API_URL}/chart/comment_threads`, {
+  const response = await fetch(`${API_URL}/chart/comment_threads_post`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ comment, dataPoint }),

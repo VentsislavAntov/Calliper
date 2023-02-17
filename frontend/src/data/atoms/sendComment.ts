@@ -5,7 +5,6 @@ import { commentThreadsAtom } from "./commentThreads";
 import { selectedDataPointAtom } from "./selectedDataPoint";
 import { selectedThreadAtom, selectedThreadIdAtom } from "./selectedThread";
 
-export const commentPublishingAtom = atom(false);
 export const commentPublishingErrorAtom = atom<string | null>(null);
 export const publishCommentAtom = atom(
   null,
@@ -15,7 +14,6 @@ export const publishCommentAtom = atom(
 
     if (selectedDataPoint == null) return;
 
-    set(commentPublishingAtom, true);
     set(commentPublishingErrorAtom, null);
     try {
       if (selectedThreadId == null) {
@@ -33,6 +31,5 @@ export const publishCommentAtom = atom(
     } catch (error: any) {
       set(commentPublishingErrorAtom, error.message);
     }
-    set(commentPublishingAtom, false);
   }
 );
