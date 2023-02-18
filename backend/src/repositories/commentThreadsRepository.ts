@@ -37,8 +37,14 @@ export const createThread = (
   firstComment: Comment,
 ): CommentThreadWithComments => {
   const id = v4();
-  if (threads[id])
+  if (threads[id]) {
     throw new InternalError('Thread with this id already exists');
+  }
+
+  // Threads should be unique per dataPoint
+  if (getByDataPoint(dataPoint) !== null) {
+    throw new InternalError('Thread with this dataPoint already exists');
+  }
 
   const thread: CommentThreadWithComments = {
     id,

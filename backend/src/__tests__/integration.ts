@@ -69,7 +69,7 @@ describe('Chart App', () => {
 
   it('should create new thread correctly', async () => {
     await request(app)
-      .post(`/chart/comment_threads`)
+      .post(`/chart/comment_threads_post`)
       .send(createThreadRequest)
       .expect(200);
 
@@ -94,9 +94,9 @@ describe('Chart App', () => {
     expect(newThread.chartDataPoint).toEqual(createThreadRequest.dataPoint);
   });
 
-  it('should throw an error if a bad adatapoint is sent', async () => {
+  it('should throw an error if a bad dataapoint is sent', async () => {
     await request(app)
-      .post(`/chart/comment_threads`)
+      .post(`/chart/comment_threads_post`)
       .send({
         ...createThreadRequest,
         dataPoint: {
@@ -109,7 +109,7 @@ describe('Chart App', () => {
 
   it('should throw an error if a bad comment is sent', async () => {
     await request(app)
-      .post(`/chart/comment_threads`)
+      .post(`/chart/comment_threads_post`)
       .send({
         ...createThreadRequest,
         comment: {
