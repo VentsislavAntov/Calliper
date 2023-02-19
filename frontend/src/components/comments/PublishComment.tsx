@@ -2,6 +2,7 @@ import { Button, Input, Text, Textarea, VStack } from "@chakra-ui/react";
 import { SyntheticEvent, useCallback } from "react";
 import { usePublishComment } from "../../data/hooks/useSendComment";
 import { usePublishCommentForm } from "../../data/hooks/useSendCommentForm";
+import { sanitize } from '../../helper/sanitize';
 
 export const PublishComment = () => {
   const { publishComment, commentError } =
@@ -23,7 +24,7 @@ export const PublishComment = () => {
         placeholder="Your name"
         backgroundColor="white"
         value={userName}
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={(e) => setUsername(sanitize(e.target.value))}
         required
       />
       <Textarea
@@ -31,14 +32,14 @@ export const PublishComment = () => {
         backgroundColor="white"
         flexGrow={1}
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={(e) => setText(sanitize(e.target.value))}
         required
       />
       <Button
         colorScheme="green"
         width="full"
         type="submit"
-        disabled={!userName || !text}
+        isDisabled={!userName || !text}
       >
         Publish
       </Button>

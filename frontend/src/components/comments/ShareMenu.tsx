@@ -3,6 +3,8 @@ import { useSharingLink } from "../../data/hooks/useSharingLink";
 import { SideMenu } from "./SideMenu";
 import { CheckIcon, CopyIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
+import { ShareForm } from "../shareLink/ShareForm";
+import './ShareMenu.css'
 
 interface ShareMenuProps {
   show: boolean;
@@ -11,6 +13,7 @@ interface ShareMenuProps {
 export const ShareMenu = ({ show }: ShareMenuProps) => {
   const link = useSharingLink();
   const [copied, setCopied] = useState(false);
+  const [showLink, setShowLink] = useState(false);
   const copyLink = () => {
     if (!link) return;
 
@@ -28,19 +31,28 @@ export const ShareMenu = ({ show }: ShareMenuProps) => {
   return (
     <SideMenu show={show}>
       <Heading size="md" pb={3}>
-        Your share link
+        Share Form
       </Heading>
-      <Code
-        p="8px"
-        display="flex"
-        flexDirection="column"
-        alignItems="flex-end"
-        cursor="pointer"
-        onClick={copyLink}
-      >
-        <Link maxWidth="100%">{link}</Link>
-        {copied ? <CheckIcon color="green" /> : <CopyIcon />}
-      </Code>
+      <ShareForm setShowLink={setShowLink}/>
+      {showLink ? 
+      <div className="linkWrapper">
+        <div className="text">
+          Restricted Access Link:
+        </div>
+        <Code
+          className="link"
+          p="8px"
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-end"
+          cursor="pointer"
+          onClick={copyLink}
+        >
+          <Link maxWidth="100%">{link}</Link>
+          {copied ? <CheckIcon color="green" /> : <CopyIcon />}
+        </Code>
+      </div>
+      : null}
     </SideMenu>
   );
 };

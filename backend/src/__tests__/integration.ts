@@ -7,7 +7,18 @@ import {
   CommentThreadWithComments,
 } from '../models/CommentThread';
 import { Comment } from '../models/Comment';
+import { Link } from '../models/Link';
 import { v4 } from 'uuid';
+
+const newLink: Link = {
+  email: 'test@mail.com',
+  expiringDateTime: '3333-03-31T11:11',
+};
+
+const newLink2: Link = {
+  email: 'test2@mail.com',
+  expiringDateTime: '2222-03-31T11:11',
+};
 
 const newComment: Comment = {
   userName: 'Tony',
@@ -137,5 +148,36 @@ describe('Chart App', () => {
 
   it('should throw error if token is invalid', async () => {
     await request(app).get(`/chart/shared/bad_token`).expect(404);
+  });
+
+  it('should return empty link data', async () => {
+    const response = await request(app).get('/chart/links').expect(200);
+    expect(response.body).toEqual({});
+  });
+
+  it('should throw an error if bad data is sent', async () => {
+    await request(app).post(`/chart/links_post`).send('test').expect(400);
+  });
+
+  it('should create a link correctly', async () => {
+    await request(app)
+      .post(`/chart/links_post`)
+      .send({ link: newLink })
+      .expect(200);
+
+    const response = await request(app).get('/chart/links').expect(200);
+    expect(response.body.email).toEqual(newLink.email);
+    expect(response.body.expiringDateTime).toEqual(newLink.expiringDateTime);
+  });
+
+  it('should update the existing link correctly', async () => {
+    await request(app)
+      .post(`/chart/links_post`)
+      .send({ link: newLink2 })
+      .expect(200);
+
+    const response = await request(app).get('/chart/links').expect(200);
+    expect(response.body.email).toEqual(newLink2.email);
+    expect(response.body.expiringDateTime).toEqual(newLink2.expiringDateTime);
   });
 });

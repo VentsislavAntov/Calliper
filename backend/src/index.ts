@@ -9,6 +9,7 @@ import {
   getCommentThread,
   respondToCommentThread,
 } from 'controllers/comments';
+import { createLinkDetails, getAllLinkDetails } from 'controllers/links';
 import { getSharedData, getShareToken } from 'controllers/sharing';
 import { HttpError } from './utils/errors';
 
@@ -24,6 +25,9 @@ router.get('/chart/comment_threads', getAllCommentThreads);
 router.get('/chart/comment_threads/:id', getCommentThread);
 router.post('/chart/comment_threads_post', createCommentThread);
 router.post('/chart/comment_threads/:id/respond', respondToCommentThread);
+
+router.get('/chart/links', getAllLinkDetails);
+router.post('/chart/links_post', createLinkDetails);
 
 router.get('/share', getShareToken);
 router.get('/chart/shared/:token', getSharedData);
