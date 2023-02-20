@@ -5,7 +5,12 @@ export function parseItems<Output, Input = Output>(
   parser: z.ZodType<Output, z.ZodTypeDef, Input>,
   items?: Record<string, unknown>[] | null,
 ): Output[] {
-  return (items || []).map((item) => parseItemStrict(parser, item));
+  try {
+    return (items || []).map((item) => parseItemStrict(parser, item));
+  } catch (error) {
+    console.error(error);
+    throw new BadRequestError('Failed to parse items');
+  }
 }
 
 export function parseItemStrict<Output, Input = Output>(

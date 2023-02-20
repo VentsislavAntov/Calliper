@@ -18,16 +18,13 @@ export const SharedChartPage = () => {
   const handleSubmit = useCallback(
     async (e: SyntheticEvent) => {
       e.preventDefault();
-      if (!linkDetails || !linkDetails.email || !linkDetails.expiringDateTime) {
-        throw new Error('Incorrect link details');
-      }
       // Initial check for expired if already attempted
       if (hasEmailExpired === 'expired') {
         return;
       }
-      if (email === linkDetails.email) {
+      if (email === linkDetails!.email) {
         // checking if expiring date is before now
-        const dateString = linkDetails.expiringDateTime;
+        const dateString = linkDetails!.expiringDateTime;
         const date = new Date(dateString);
         const today = new Date();
 
@@ -76,7 +73,7 @@ export const SharedChartPage = () => {
         : 
         <ModalContent>
           <ModalBody>
-            <Text color="red" fontStyle="italic" maxWidth="100%">
+            <Text textAlign="center" color="red" fontStyle="italic" maxWidth="100%">
               The email has already expired.
             </Text>
           </ModalBody>

@@ -11,24 +11,36 @@ export const getAllCommentThreads = () => {
 export const getCommentThread = (id: string) => {
   const thread = commentThreadsRepository.get(id);
 
-  if (!thread) throw new BadRequestError(`Thread with id ${id} not found`);
+  if (!thread) {
+    throw new BadRequestError(`Thread with id ${id} not found`);
+  }
 
   return thread;
 };
 
 export const createThread = (dataPoint: ChartDataPoint, comment: Comment) => {
-  const thread = commentThreadsRepository.getByDataPoint(dataPoint);
+  try {
+    const thread = commentThreadsRepository.getByDataPoint(dataPoint);
 
-  if (!thread) {
-    return commentThreadsRepository.createThread(dataPoint, comment);
+    if (!thread) {
+      return commentThreadsRepository.createThread(dataPoint, comment);
+    }
+
+    return commentThreadsRepository.addComment(
+      (thread as CommentThreadWithComments)?.id ?? '',
+      comment,
+    );
+  } catch (error) {
+    console.error(error);
+    throw new BadRequestError('Failed to create thread');
   }
-
-  return commentThreadsRepository.addComment(
-    (thread as CommentThreadWithComments)?.id ?? '',
-    comment,
-  );
 };
 
 export const respondToThread = (id: string, comment: Comment) => {
-  return commentThreadsRepository.addComment(id, comment);
+  try {
+    return commentThreadsRepository.addComment(id, comment);
+  } catch (error) {
+    console.error(error);
+    throw new BadRequestError('Failed to respond to comment thread');
+  }
 };

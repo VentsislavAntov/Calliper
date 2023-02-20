@@ -147,7 +147,7 @@ describe('Chart App', () => {
   });
 
   it('should throw error if token is invalid', async () => {
-    await request(app).get(`/chart/shared/bad_token`).expect(404);
+    await request(app).get(`/chart/shared/bad_token`).expect(400);
   });
 
   it('should return empty link data', async () => {
