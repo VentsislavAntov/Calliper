@@ -5,6 +5,7 @@ import { ChartPageLayout } from "../components/ChartPageLayout";
 import { useSharedChartData } from "../data/hooks/useSharedChartData";
 import { useLinkDetails } from "../data/hooks/useLinkDetails";
 import { useExpireDateStorage } from "../data/hooks/useExpireDateStorage";
+import { sanitize } from "../helper/sanitize";
 
 
 export const SharedChartPage = () => {
@@ -58,7 +59,7 @@ export const SharedChartPage = () => {
             <form onSubmit={handleSubmit}>
               <FormControl>
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input type="email" value={email} onChange={(e) => setEmail(sanitize(e.target.value))} />
               </FormControl>
               <Button mt={4} colorScheme="blue" type="submit">
                 Submit
