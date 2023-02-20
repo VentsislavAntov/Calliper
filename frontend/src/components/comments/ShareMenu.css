@@ -1,0 +1,14 @@
+.linkWrapper {
+  padding-top: 2rem;
+}
+
+.text {
+  align-self: baseline;
+  padding-top: .5rem;
+  font-weight: 500;
+  padding-bottom: 0.3rem;
+}
+
+.chakra-code a {
+  align-self: flex-start;
+}
